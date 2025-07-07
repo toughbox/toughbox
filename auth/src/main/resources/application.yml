@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: auth
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://13.125.251.117:3306
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: tough
+      password: 1234
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database: mysql
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:sql/schema.sql
+
+server:
+  port: 8081
