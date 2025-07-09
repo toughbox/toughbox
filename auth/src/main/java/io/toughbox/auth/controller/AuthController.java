@@ -5,10 +5,7 @@ import io.toughbox.auth.controller.request.SimpleUserRequestBody;
 import io.toughbox.auth.service.OtpService;
 import io.toughbox.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +20,8 @@ public class AuthController {
     }
 
     @GetMapping("/api/v1/otp/check")
-    public boolean check(@RequestBody SimpleOtpRequestBody simpleOtpRequestBody) {
-        return otpService.checkOtp(simpleOtpRequestBody.getUserId(), simpleOtpRequestBody.getOtp());
+    public boolean check(@RequestParam String userId,
+                         @RequestParam String otp) {
+        return otpService.checkOtp(userId, otp);
     }
 }
