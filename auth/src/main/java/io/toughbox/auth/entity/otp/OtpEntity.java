@@ -1,5 +1,6 @@
 package io.toughbox.auth.entity.otp;
 
+import io.toughbox.auth.domain.Otp;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,9 @@ public class OtpEntity {
 
     public void renewOtp(String otpCode) {
         this.otpCode = otpCode;
+    }
+
+    public Otp toDomain() {
+        return new Otp(userId, otpCode);
     }
 }
