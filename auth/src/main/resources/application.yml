@@ -3,7 +3,8 @@ spring:
     name: auth
   datasource:
     hikari:
-      jdbc-url: jdbc:mysql://13.125.251.117:3306/auth
+      #jdbc-url: jdbc:mysql://13.125.251.117:3306/auth
+      jdbc-url: jdbc:mysql://toughbox.iptime.org:3306/auth
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: tough
       password: 1234
