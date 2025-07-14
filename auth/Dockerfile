@@ -5,7 +5,7 @@
 #EXPOSE 8081
 #ENTRYPOINT ["java", "-jar", "/auth.jar"]
 
-FROM openjdk:21-jre-slim
+FROM openjdk:21
 LABEL authors="tough"
 
 COPY build/libs/*.jar auth.jar
