@@ -3,11 +3,8 @@ LABEL authors="tough"
 
 COPY build/libs/*.jar auth.jar
 
-# adduser, addgroup 설치
-RUN apt-get update && apt-get install -y --no-install-recommends adduser \
-    && rm -rf /var/lib/apt/lists/*
+RUN groupadd -r builder && useradd -r -g builder builder
 
-RUN addgroup --system builder && adduser --system builder --ingroup builder
 USER builder:builder
 
 EXPOSE 8082
