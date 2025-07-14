@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # 데이터베이스
+  mysql:
+    image: mysql:8.0
+    container_name: toughbox-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: toughbox
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./auth/src/main/resources/sql:/docker-entrypoint-initdb.d
+    networks:
+      - toughbox-network
+
+  # MinIO (파일 저장소)
+  minio:
+    image: minio/minio:latest
+    container_name: toughbox-minio
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - toughbox-network
+
+  # 인증 서비스
+  auth-service:
+    image: ${REGISTRY}/toughbox-auth:${TAG}
+    container_name: toughbox-auth
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/toughbox
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    networks:
+      - toughbox-network
+    restart: unless-stopped
+
+  # 버킷 서비스
+  bucket-service:
+    image: ${REGISTRY}/toughbox-bucket:${TAG}
+    container_name: toughbox-bucket
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - "8082:8082"
+    depends_on:
+      - minio
+    networks:
+      - toughbox-network
+    restart: unless-stopped
+
+  # 영화 서비스
+  movie-service:
+    image: ${REGISTRY}/toughbox-movie:${TAG}
+    container_name: toughbox-movie
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      AUTH_SERVICE_URL: http://auth-service:8081
+    ports:
+      - "8083:8083"
+    depends_on:
+      - auth-service
+    networks:
+      - toughbox-network
+    restart: unless-stopped
+
+  # Nginx (리버스 프록시)
+  nginx:
+    image: nginx:alpine
+    container_name: toughbox-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - auth-service
+      - bucket-service
+      - movie-service
+    networks:
+      - toughbox-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  minio_data:
+
+networks:
+  toughbox-network:
+    driver: bridge
