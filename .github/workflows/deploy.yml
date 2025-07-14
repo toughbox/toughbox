@@ -77,7 +77,7 @@ jobs:
         username: ${{ secrets.PROD_USER }}
         key: ${{ secrets.PROD_SSH_KEY }}
         script: |
-          cd /home/ubuntu/toughbox
+          cd /home/tough/application
           git pull origin main
           docker-compose -f docker-compose.prod.yml --env-file .env.prod pull
           docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
