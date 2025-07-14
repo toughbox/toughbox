@@ -1,0 +1,15 @@
+CREATE TABLE file_info (
+    id           BIGINT AUTO_INCREMENT PRIMARY KEY,
+    uuid         CHAR(36) NOT NULL,
+    origin_name  VARCHAR(255) NOT NULL,
+    ext          VARCHAR(20),
+    size         BIGINT,
+    content_type VARCHAR(100),
+    bucket       VARCHAR(100),
+    path         VARCHAR(500),
+    uploader_id  BIGINT,
+    status       VARCHAR(20) DEFAULT 'ACTIVE',
+    created_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at   DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_uuid (uuid)
+);
