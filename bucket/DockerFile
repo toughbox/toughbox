@@ -8,7 +8,6 @@ RUN yum install -y shadow-utils && yum clean all
 
 RUN groupadd -r builder && useradd -r -g builder builder
 
-RUN addgroup --system builder && adduser --system builder --ingroup builder
 USER builder:builder
 
 EXPOSE 8082
