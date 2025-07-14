@@ -1,4 +1,4 @@
-FROM openjdk:21-jre-slim
+FROM amazoncorretto:21
 LABEL authors="tough"
 
 COPY build/libs/*.jar movie.jar
