@@ -2,7 +2,7 @@ services:
   # 데이터베이스
   mysql:
     image: mysql:8.0
-    container_name: toughbox-mysql
+    container_name: mysql-service
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: toughbox
@@ -19,7 +19,7 @@ services:
   # MinIO (파일 저장소)
   minio:
     image: minio/minio:latest
-    container_name: toughbox-minio
+    container_name: minio-service
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
@@ -35,7 +35,7 @@ services:
   # 인증 서비스
   auth-service:
     image: ${REGISTRY}/toughbox-auth:${TAG}
-    container_name: toughbox-auth
+    container_name: auth-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/toughbox
@@ -52,7 +52,7 @@ services:
   # 버킷 서비스
   bucket-service:
     image: ${REGISTRY}/toughbox-bucket:${TAG}
-    container_name: toughbox-bucket
+    container_name: bucket-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
       MINIO_ENDPOINT: http://minio:9000
@@ -69,7 +69,7 @@ services:
   # 영화 서비스
   movie-service:
     image: ${REGISTRY}/toughbox-movie:${TAG}
-    container_name: toughbox-movie
+    container_name: movie-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
       AUTH_SERVICE_URL: http://auth-service:8081
@@ -84,7 +84,7 @@ services:
   # Nginx (리버스 프록시)
   nginx:
     image: nginx:alpine
-    container_name: toughbox-nginx
+    container_name: nginx-service
     ports:
       - "80:80"
       - "443:443"
