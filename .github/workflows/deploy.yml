@@ -40,7 +40,7 @@ jobs:
         cd auth
         chmod +x ./gradlew
         ./gradlew bootJar
-        docker build -t ${{ env.REGISTRY }}/${{ github.repository }}/auth-service:${{ github.sha }} .
+        docker build --no-cache -t ${{ env.REGISTRY }}/${{ github.repository }}/auth-service:${{ github.sha }} .
         docker push ${{ env.REGISTRY }}/${{ github.repository }}/auth-service:${{ github.sha }}
         docker tag ${{ env.REGISTRY }}/${{ github.repository }}/auth-service:${{ github.sha }} ${{ env.REGISTRY }}/${{ github.repository }}/auth-service:latest
         docker push ${{ env.REGISTRY }}/${{ github.repository }}/auth-service:latest
@@ -50,7 +50,7 @@ jobs:
         cd bucket
         chmod +x ./gradlew
         ./gradlew bootJar
-        docker build -t ${{ env.REGISTRY }}/${{ github.repository }}/bucket-service:${{ github.sha }} .
+        docker build --no-cache -t ${{ env.REGISTRY }}/${{ github.repository }}/bucket-service:${{ github.sha }} .
         docker push ${{ env.REGISTRY }}/${{ github.repository }}/bucket-service:${{ github.sha }}
         docker tag ${{ env.REGISTRY }}/${{ github.repository }}/bucket-service:${{ github.sha }} ${{ env.REGISTRY }}/${{ github.repository }}/bucket-service:latest
         docker push ${{ env.REGISTRY }}/${{ github.repository }}/bucket-service:latest
@@ -60,7 +60,7 @@ jobs:
         cd movie
         chmod +x ./gradlew
         ./gradlew bootJar
-        docker build -t ${{ env.REGISTRY }}/${{ github.repository }}/movie-service:${{ github.sha }} .
+        docker build --no-cache -t ${{ env.REGISTRY }}/${{ github.repository }}/movie-service:${{ github.sha }} .
         docker push ${{ env.REGISTRY }}/${{ github.repository }}/movie-service:${{ github.sha }}
         docker tag ${{ env.REGISTRY }}/${{ github.repository }}/movie-service:${{ github.sha }} ${{ env.REGISTRY }}/${{ github.repository }}/movie-service:latest
         docker push ${{ env.REGISTRY }}/${{ github.repository }}/movie-service:latest
