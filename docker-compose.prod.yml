@@ -34,7 +34,7 @@ services:
 
   # 인증 서비스
   auth-service:
-    image: ${REGISTRY}/toughbox-auth:${TAG}
+    image: ${REGISTRY}/auth-service:${TAG}
     container_name: auth-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
@@ -51,7 +51,7 @@ services:
 
   # 버킷 서비스
   bucket-service:
-    image: ${REGISTRY}/toughbox-bucket:${TAG}
+    image: ${REGISTRY}/bucket-service:${TAG}
     container_name: bucket-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
@@ -68,7 +68,7 @@ services:
 
   # 영화 서비스
   movie-service:
-    image: ${REGISTRY}/toughbox-movie:${TAG}
+    image: ${REGISTRY}/movie-service:${TAG}
     container_name: movie-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
