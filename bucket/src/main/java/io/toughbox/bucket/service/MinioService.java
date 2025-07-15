@@ -24,7 +24,7 @@ public class MinioService {
 
     private final MinioClient minioClient;
     private final FileInfoRepository fileInfoRepository;
-    private final String bucketName = "portfolio";
+    private final String bucketName = "toughbox";
 
     public void uploadFile(MultipartFile file) throws Exception {
 
