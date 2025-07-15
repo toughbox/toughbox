@@ -3,7 +3,7 @@ spring:
     name: bucket
   datasource:
     hikari:
-      jdbc-url: jdbc:mysql://toughbox.iptime.org:3306/auth
+      jdbc-url: jdbc:mysql://toughbox.iptime.org:3306/movie
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: tough
       password: 1234
