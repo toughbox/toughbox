@@ -65,7 +65,7 @@ public class MinioService {
     public ResponseEntity<byte[]> downloadFile(String uuid) throws Exception {
 
         FileInfo fileInfo = fileInfoRepository.findByUuid(uuid)
-                .orElseThrow(() -> new IllegalArgumentException("File not found!"));
+                .orElseThrow(() -> new IllegalArgumentException("File not found!!"));
 
         String fileName = uuid + "." + fileInfo.getExt();
         GetObjectResponse objectResponse = minioClient.getObject(
