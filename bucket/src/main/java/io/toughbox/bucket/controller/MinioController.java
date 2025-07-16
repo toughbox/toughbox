@@ -1,22 +1,19 @@
 package io.toughbox.bucket.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.toughbox.bucket.service.MinioService;
+import io.toughbox.bucket.service.FileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/minio")
 public class MinioController {
 
-    private final MinioService minioService;
-
-    public MinioController(MinioService minioService) {
-        this.minioService = minioService;
-    }
+    private final FileService fileService;
 
     @GetMapping("")
     public String index() {
@@ -30,13 +27,13 @@ public class MinioController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Boolean> upload(@RequestParam(name = "file", required = true) MultipartFile file) throws Exception {
-        minioService.uploadFile(file);
+        fileService.uploadFile(file);
         return ResponseEntity.ok(true);
     }
 
     @Operation(summary = "파일 다운로드", description = "minIO 버킷의 파일 다운로드")
     @GetMapping("/download/{uuid}")
     public ResponseEntity<byte[]> download(@PathVariable String uuid) throws Exception {
-        return minioService.downloadFile(uuid);
+        return fileService.downloadFile(uuid);
     }
 }

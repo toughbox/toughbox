@@ -20,13 +20,16 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class MinioService {
+public class MinioServiceImpl implements  FileService {
 
     private final MinioClient minioClient;
     private final FileInfoRepository fileInfoRepository;
     private final String bucketName = "toughbox";
 
-    public void uploadFile(MultipartFile file) throws Exception {
+    @Override
+    public void uploadFile(MultipartFile file) throws ServerException, InsufficientDataException,
+            ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException,
+            InvalidResponseException, XmlParserException, InternalException {
 
         checkBucket();
 
@@ -62,7 +65,10 @@ public class MinioService {
         fileInfoRepository.save(fileInfo);
     }
 
-    public ResponseEntity<byte[]> downloadFile(String uuid) throws Exception {
+    @Override
+    public ResponseEntity<byte[]> downloadFile(String uuid) throws ServerException, InsufficientDataException,
+            ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException,
+            XmlParserException, InternalException {
 
         FileInfo fileInfo = fileInfoRepository.findByUuid(uuid)
                 .orElseThrow(() -> new IllegalArgumentException("File not found!"));
