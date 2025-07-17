@@ -4,6 +4,7 @@ import io.toughbox.auth.controller.request.EncryptedUserRequestBody;
 import io.toughbox.auth.domain.User;
 import io.toughbox.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/users")
-    public User createuser(@RequestBody EncryptedUserRequestBody requestBody) {
-        return userService.createUser(requestBody.getUserId(), requestBody.getPassword());
+    public ResponseEntity<User> createUser(@RequestBody EncryptedUserRequestBody requestBody) {
+        return ResponseEntity.ok(userService.createUser(requestBody.getUserId(), requestBody.getPassword()));
     }
 }
