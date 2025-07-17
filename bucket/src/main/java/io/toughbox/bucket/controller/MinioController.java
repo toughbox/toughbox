@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/minio")
+@RequestMapping("/api/v1")
 public class MinioController {
 
     private final FileService fileService;
