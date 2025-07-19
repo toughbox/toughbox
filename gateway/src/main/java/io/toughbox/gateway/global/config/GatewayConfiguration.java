@@ -1,4 +1,4 @@
-package io.toughbox.gateway.config;
+package io.toughbox.gateway.global.config;
 
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
