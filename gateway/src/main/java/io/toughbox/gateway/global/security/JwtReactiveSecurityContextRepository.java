@@ -33,10 +33,10 @@ public class JwtReactiveSecurityContextRepository implements ServerSecurityConte
             try {
                 String username = jwtUtil.extractUsername(authToken);
                 if (username != null && jwtUtil.validateToken(authToken)) {
-                    userDetailsService.findByUsername(username)
-                            .map(userDetails -> new UsernamePasswordAuthenticationToken(userDetails, null))
+                    return userDetailsService.findByUsername(username)
+                            .map(userDetails ->
+                                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()))
                             .map(SecurityContextImpl::new);
-
                 }
             } catch (Exception e) {
                 log.error("Authentication error", e);
