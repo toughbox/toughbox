@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bucket.main.iml" filepath="$PROJECT_DIR$/.idea/modules/bucket.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/movie.main.iml" filepath="$PROJECT_DIR$/.idea/modules/movie.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/toughbox.iml" filepath="$PROJECT_DIR$/toughbox.iml" />
     </modules>
