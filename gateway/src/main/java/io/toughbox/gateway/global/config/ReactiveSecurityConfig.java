@@ -5,6 +5,7 @@ import io.toughbox.gateway.global.security.JwtReactiveSecurityContextRepository;
 import io.toughbox.gateway.util.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
@@ -38,6 +39,8 @@ public class ReactiveSecurityConfig {
                         exchanges
                                 .pathMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                                 .pathMatchers("/login").permitAll()
+                                .pathMatchers(HttpMethod.POST, "/auth/users").permitAll()
+                                //.pathMatchers("/**").permitAll()
                                 .pathMatchers("/actuator/**").permitAll()
                                 .anyExchange().authenticated()
                 )
