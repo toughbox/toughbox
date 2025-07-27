@@ -1,7 +1,6 @@
 package io.toughbox.gateway.controller;
 
 import io.jsonwebtoken.Jwt;
-import io.toughbox.gateway.util.JwtUtil;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import reactor.core.publisher.Mono;
 @RestController
 public class AuthenticationController {
 
-    private final ReactiveAuthenticationManager authenticationManager;
+    /*private final ReactiveAuthenticationManager authenticationManager;
     private final JwtUtil  jwtUtil;
 
     @PostMapping("/login")
@@ -43,5 +42,5 @@ public class AuthenticationController {
     }
 
     public record AuthResponse(String token) {
-    }
+    }*/
 }

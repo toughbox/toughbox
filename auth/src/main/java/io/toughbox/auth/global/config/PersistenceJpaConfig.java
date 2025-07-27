@@ -1,7 +1,5 @@
-package io.toughbox.auth.config;
+package io.toughbox.auth.global.config;
 
-import ch.qos.logback.classic.spi.ConfiguratorRank;
-import com.zaxxer.hikari.HikariDataSource;
 import io.toughbox.auth.entity.EntityModule;
 import io.toughbox.auth.repository.RepositoryModule;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -11,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 

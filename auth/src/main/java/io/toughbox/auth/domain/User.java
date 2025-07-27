@@ -13,6 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class User implements UserDetails {
 
+    @Getter
+    private Long id;
     private final String userId;
     private final String password;
 

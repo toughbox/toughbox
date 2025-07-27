@@ -8,10 +8,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
+//@Configuration
 public class SecurityConfig {
 
-    @Bean
+    /*@Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -19,7 +19,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         //기본적으로 csrf는 활성화 상태(토큰기반 인증만 사용 시 비활성화)
-        /*
+        *//*
         토큰 인증만 사용하는 경우 CSRF 비활성화가 권장되는 이유
 
         1. CSRF 공격의 원리
@@ -45,9 +45,9 @@ public class SecurityConfig {
         4. 실제 적용 예시
         Spring Security 등에서는 REST API 서버, 모바일 백엔드 등 토큰 인증만 사용하는 환경에서
         .csrf().disable() 설정을 권장합니다.
-         */
+         *//*
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.authorizeHttpRequests(c -> c.anyRequest().permitAll());
         return httpSecurity.build();
-    }
+    }*/
 }
