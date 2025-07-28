@@ -32,6 +32,23 @@ services:
     networks:
       - toughbox-network
 
+  # 게이트웨이 서비스
+  gateway-service:
+    image: ${REGISTRY}/${REPOSITORY}/auth-service:${TAG}
+    container_name: gateway-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/toughbox
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - toughbox-network
+    restart: unless-stopped
+
   # 인증 서비스
   auth-service:
     image: ${REGISTRY}/${REPOSITORY}/auth-service:${TAG}

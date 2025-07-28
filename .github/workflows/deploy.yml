@@ -35,6 +35,16 @@ jobs:
         username: ${{ env.REGISTRY_USER }}
         password: ${{ env.REGISTRY_PASSWORD }}
 
+    - name: Build and push gateway service
+      run: |
+        cd gateway
+        chmod +x ./gradlew
+        ./gradlew bootJar
+        docker build -t ${{ env.REGISTRY }}/${{ github.repository }}/gateway-service:${{ github.sha }} .
+        docker push ${{ env.REGISTRY }}/${{ github.repository }}/gateway-service:${{ github.sha }}
+        docker tag ${{ env.REGISTRY }}/${{ github.repository }}/gateway-service:${{ github.sha }} ${{ env.REGISTRY }}/${{ github.repository }}/gateway-service:latest
+        docker push ${{ env.REGISTRY }}/${{ github.repository }}/gateway-service:latest
+
     - name: Build and push auth service
       run: |
         cd auth
