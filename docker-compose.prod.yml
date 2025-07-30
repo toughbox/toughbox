@@ -34,7 +34,7 @@ services:
 
   # 게이트웨이 서비스
   gateway-service:
-    image: ${REGISTRY}/${REPOSITORY}/auth-service:${TAG}
+    image: ${REGISTRY}/${REPOSITORY}/gateway-service:${TAG}
     container_name: gateway-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
