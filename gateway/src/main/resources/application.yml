@@ -7,7 +7,60 @@ spring:
         webflux:
           routes:
             - id: auth
-              #uri: http://localhost:8081
+              uri: http://localhost:8081
+              order: 1
+              predicates:
+                - Path=/auth/**
+              filters:
+                - RewritePath=/auth/(?<segment>.*), /api/v1/$\{segment}
+            - id: bucket
+              uri: http://localhost:8082
+              order: 1
+              predicates:
+                - Path=/bucket/**
+              filters:
+                - RewritePath=/bucket/(?<segment>.*), /api/v1/$\{segment}
+          globals:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins:
+                  - "http://localhost:8090"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - PATCH
+                  - OPTIONS
+                allowedHeaders: "*"
+                allowCredentials: true
+                maxAge: 3600
+
+server:
+  port: 8080
+
+jwt:
+  secret: cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.server.adapter: DEBUG
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: auth
               uri: http://toughbox.iptime.org:8081
               order: 1
               predicates:
@@ -15,7 +68,6 @@ spring:
               filters:
                 - RewritePath=/auth/(?<segment>.*), /api/v1/$\{segment}
             - id: bucket
-              #uri: http://localhost:8082
               uri: http://toughbox.iptime.org:8082
               order: 1
               predicates:
@@ -26,7 +78,6 @@ spring:
             cors-configurations:
               '[/**]':
                 allowedOrigins:
-                  #- "http://localhost:8090"
                   - "http://toughbox.iptime.org:8090"
                 allowedMethods:
                   - GET

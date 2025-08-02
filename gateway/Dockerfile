@@ -11,4 +11,4 @@ RUN groupadd -r builder && useradd -r -g builder builder
 USER builder:builder
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/gateway.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod ", "/gateway.jar"]
