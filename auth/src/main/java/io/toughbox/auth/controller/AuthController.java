@@ -19,7 +19,7 @@ public class AuthController {
     public final OtpService otpService;
     public final UserService userService;
 
-    @Operation(summary = "사용자 인증", description = "사용자 인증 후 otp 반환")
+    @Operation(tags = "[인증]AuthController", summary = "사용자 인증", description = "사용자 인증 후 otp 반환")
     @PostMapping("/users/login")
     public ResponseEntity<LoginResponse> login(@RequestBody SimpleUserRequestBody simpleUserRequestBody) {
         LoginResponse loginResponse = userService.login(simpleUserRequestBody.getUserId(), simpleUserRequestBody.getPassword());
@@ -27,7 +27,7 @@ public class AuthController {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @Operation(summary = "otp 검증", description = "유효한 otp인지 검사 (유효하면 true 반환)")
+    @Operation(tags = "[인증]AuthController", summary = "otp 검증", description = "유효한 otp인지 검사 (유효하면 true 반환)")
     @GetMapping("/otp/check")
     public boolean check(@RequestParam String userId,
                          @RequestParam String otp) {
