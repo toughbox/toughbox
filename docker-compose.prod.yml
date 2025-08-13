@@ -99,11 +99,11 @@ services:
     restart: unless-stopped
 
   # 프론트엔드 추가
-  #frontend:
-  #  image: ${REGISTRY}/${REPOSITORY}/toughbox-front:latest
-  #  container_name: toughbox-front
-  #  networks:
-  #    - toughbox-network
+  frontend:
+    image: ${REGISTRY}/${REPOSITORY}/toughbox-front:latest
+    container_name: toughbox-front
+    networks:
+      - toughbox-network
 
   # Nginx (리버스 프록시)
   nginx:
@@ -119,7 +119,7 @@ services:
       - auth-service
       - bucket-service
       - movie-service
-      #- toughbox-front
+      - toughbox-front
     networks:
       - toughbox-network
     restart: unless-stopped
