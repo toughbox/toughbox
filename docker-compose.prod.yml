@@ -101,7 +101,7 @@ services:
   # 프론트엔드 추가
   frontend:
     image: ${REGISTRY}/${REPOSITORY}/toughbox-front:latest
-    container_name: front-service
+    container_name: toughbox-front
     networks:
       - toughbox-network
 
@@ -119,7 +119,7 @@ services:
       - auth-service
       - bucket-service
       - movie-service
-      - front-service
+      - toughbox-front
     networks:
       - toughbox-network
     restart: unless-stopped
