@@ -38,7 +38,8 @@ public class AuthRepository {
     public User getUserByUserId(String userId) {
         return readTransactionOperations.execute(status -> {
             return userJpaRepository.findUserEntityByUserId(userId)
-                    .orElseThrow(InvalidAuthException::new)
+                    //.orElseThrow(InvalidAuthException::new)
+                    .orElse(new UserEntity())
                     .toDomain();
 
         });

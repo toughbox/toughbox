@@ -6,9 +6,8 @@ import io.toughbox.auth.dto.UserResponse;
 import io.toughbox.auth.repository.auth.AuthRepository;
 import io.toughbox.auth.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +24,10 @@ public class UserService {
 
     public LoginResponse login(String userId, String password) {
         User user = authRepository.getUserByUserId(userId);
+
+        if (ObjectUtils.isEmpty(user.getUserId()))
+            return new LoginResponse();
+
         if (encryptService.matches(password, user.getPassword())) {
             //return otpService.renewOtp(userId);
 
@@ -36,8 +39,6 @@ public class UserService {
             return loginResponse;
         }
 
-        return null;
-
-        //throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid id or password");
+        throw new RuntimeException("로그인 중 오류가 발생하였습니다.");
     }
 }
