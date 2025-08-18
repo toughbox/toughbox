@@ -6,7 +6,9 @@ import io.toughbox.auth.dto.UserResponse;
 import io.toughbox.auth.repository.auth.AuthRepository;
 import io.toughbox.auth.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +36,6 @@ public class UserService {
             return loginResponse;
         }
 
-        throw new RuntimeException("Invalid password");
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid id or password");
     }
 }
