@@ -1,6 +1,13 @@
 spring:
   application:
     name: movie
+  data:
+    redis:
+      #host: localhost
+      host: toughbox.iptime.org
+      password:
+      database: 0
+      port: 6379
 
 server:
   port: 8083
