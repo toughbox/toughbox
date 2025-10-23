@@ -21,11 +21,9 @@ spring:
               filters:
                 - RewritePath=/bucket/(?<segment>.*), /api/v1/$\{segment}
             - id: actuator
-              uri: no://op
+              uri: http://localhost:8080
               predicates:
                 - Path=/actuator/**
-              filters:
-                - SetStatus=404
           globals:
             cors-configurations:
               '[/**]':
@@ -90,11 +88,9 @@ spring:
               filters:
                 - RewritePath=/bucket/(?<segment>.*), /api/v1/$\{segment}
             - id: actuator
-              uri: no://op
+              uri: http://toughbox.iptime.org:8080
               predicates:
                 - Path=/actuator/**
-              filters:
-                - SetStatus=404
           globals:
             cors-configurations:
               '[/**]':
