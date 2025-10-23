@@ -51,12 +51,14 @@ jwt:
 management:
   server:
     port: 9010
+    address: 0.0.0.0
   endpoints:
     web:
       exposure:
         include: "health,info,prometheus"
   endpoint:
     prometheus:
+      enabled: true
       access: unrestricted
 
 logging:
@@ -122,12 +124,14 @@ jwt:
 management:
   server:
     port: 9010
+    address: 0.0.0.0
   endpoints:
     web:
       exposure:
         include: "health,info,prometheus"
   endpoint:
     prometheus:
+      enabled: true
       access: unrestricted
 
 logging:
