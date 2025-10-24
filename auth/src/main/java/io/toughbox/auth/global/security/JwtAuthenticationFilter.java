@@ -29,12 +29,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        String path = request.getRequestURI();
 
-        if (path.startsWith("/api/v1/actuator") || path.startsWith("/error")) {
+        String path = request.getRequestURI();
+        System.out.println("Before return: " + path);
+        if (path.startsWith("/actuator/prometheus") || path.startsWith("/api/v1/actuator/prometheus") || path.startsWith("/error")) {
             chain.doFilter(request, response);
             return;
         }
+
+        System.out.println("JWT Filter path: " + path);
 
         String bearer = request.getHeader("Authorization");
 
