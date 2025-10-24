@@ -130,4 +130,5 @@ volumes:
 
 networks:
   toughbox-network:
+    name: toughbox-network
     driver: bridge
