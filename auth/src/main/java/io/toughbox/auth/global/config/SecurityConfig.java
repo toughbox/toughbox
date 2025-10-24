@@ -33,7 +33,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtUtil jwtUtil, UserDetailsService userDetailsService) throws Exception {
-        log.info(">>>In filterChain~!!!!!!!!!<<<<<<<<<<<<<<<<<");
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
@@ -41,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/stress/**").permitAll()
                         //.requestMatchers("/api/v1/actuator/prometheus").authenticated()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()

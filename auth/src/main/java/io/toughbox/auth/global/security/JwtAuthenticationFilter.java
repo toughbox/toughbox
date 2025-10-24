@@ -33,13 +33,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
         String path = request.getRequestURI();
-        log.info(">>>111 JwtAuthenticationFilter processing path: {}", path);
         if (path.startsWith("/actuator/prometheus") || path.startsWith("/api/v1/actuator/prometheus") || path.startsWith("/error")) {
             chain.doFilter(request, response);
             return;
         }
-
-        log.info(">>>222 JwtAuthenticationFilter processing path: {}", path);
 
         String bearer = request.getHeader("Authorization");
 
