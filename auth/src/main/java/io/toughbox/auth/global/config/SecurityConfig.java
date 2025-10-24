@@ -6,11 +6,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -34,11 +38,13 @@ public class SecurityConfig {
                         //.requestMatchers("/auth/login", "/auth/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
-                        .requestMatchers("/api/v1/actuator/**").permitAll()
-                        .requestMatchers("/actuator/health", "/actuator/**").permitAll()
+                        /*.requestMatchers("/api/v1/actuator/**").permitAll()
+                        .requestMatchers("/actuator/health", "/actuator/**").permitAll()*/
+                        .requestMatchers("/api/v1/actuator/prometheus").authenticated()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
+                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.disable())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userDetailsService),
                         UsernamePasswordAuthenticationFilter.class);
@@ -48,5 +54,16 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsManager() {
+        UserDetails prometheusUser = User.builder()
+                .username("prometheus")
+                .password(passwordEncoder().encode("icJsHeHte8P28Mgn4CUB")) // Prometheus 설정과 동일하게
+                .roles("PROMETHEUS")
+                .build();
+
+        return new InMemoryUserDetailsManager(prometheusUser);
     }
 }
