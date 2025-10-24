@@ -50,6 +50,10 @@ management:
   endpoint:
     prometheus:
       access: unrestricted
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 logging:
   level:
@@ -113,6 +117,10 @@ management:
   endpoint:
     prometheus:
       access: unrestricted
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 logging:
   level:
