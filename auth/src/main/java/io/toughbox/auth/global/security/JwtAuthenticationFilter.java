@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
         String path = request.getRequestURI();
-        if (path.startsWith("/actuator/prometheus") || path.startsWith("/api/v1/actuator/prometheus") || path.startsWith("/error")) {
+        if (path.startsWith("/stress/loop") || path.startsWith("/actuator/prometheus") || path.startsWith("/api/v1/actuator/prometheus") || path.startsWith("/error")) {
             chain.doFilter(request, response);
             return;
         }
