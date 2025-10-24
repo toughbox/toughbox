@@ -33,7 +33,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtUtil jwtUtil, UserDetailsService userDetailsService) throws Exception {
-        log.info(">>>In filterChain~!!!!!!!!!");
+        log.info(">>>In filterChain~!!!!!!!!!<<<<<<<<<<<<<<<<<");
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
