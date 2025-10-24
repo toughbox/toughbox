@@ -11,8 +11,13 @@ spring:
               order: 1
               predicates:
                 - Path=/auth/**
+              #filters:
+              #  - RewritePath=/auth/(?<segment>.*), /api/v1/$\{segment}
               filters:
-                - RewritePath=/auth/(?<segment>.*), /api/v1/$\{segment}
+                - name: RewritePath
+                  args:
+                    regexp: /auth/(?!actuator)(?<segment>.*)
+                    replacement: /api/v1/${segment}
             - id: bucket
               uri: http://localhost:8082
               order: 1
@@ -81,8 +86,13 @@ spring:
               order: 1
               predicates:
                 - Path=/auth/**
+              #filters:
+              #  - RewritePath=/auth/(?<segment>.*), /api/v1/$\{segment}
               filters:
-                - RewritePath=/auth/(?<segment>.*), /api/v1/$\{segment}
+                - name: RewritePath
+                  args:
+                    regexp: /auth/(?!actuator)(?<segment>.*)
+                    replacement: /api/v1/${segment}
             - id: bucket
               uri: http://toughbox.iptime.org:8082
               order: 1
