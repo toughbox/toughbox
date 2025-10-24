@@ -106,23 +106,23 @@ services:
       - toughbox-network
 
   # Nginx (리버스 프록시)
-  nginx:
-    image: nginx:alpine
-    container_name: nginx-service
-    ports:
-      - "8090:8090"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl:/etc/nginx/ssl
-    depends_on:
-      - auth-service
-      - bucket-service
-      - movie-service
-      - toughbox-front
-    networks:
-      - toughbox-network
-    restart: unless-stopped
+  #nginx:
+  #  image: nginx:alpine
+  #  container_name: nginx-service
+  #  ports:
+  #    - "8090:8090"
+  #    - "443:443"
+  #  volumes:
+  #    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #    - ./nginx/ssl:/etc/nginx/ssl
+  #  depends_on:
+  #    - auth-service
+  #    - bucket-service
+  #    - movie-service
+  #    - toughbox-front
+  #  networks:
+  #    - toughbox-network
+  #  restart: unless-stopped
 
 volumes:
   mysql_data:
