@@ -38,13 +38,12 @@ public class SecurityConfig {
                         //.requestMatchers("/auth/login", "/auth/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
-                        /*.requestMatchers("/api/v1/actuator/**").permitAll()
-                        .requestMatchers("/actuator/health", "/actuator/**").permitAll()*/
-                        .requestMatchers("/api/v1/actuator/prometheus").authenticated()
+                        .requestMatchers("/actuator/**").permitAll()
+                        //.requestMatchers("/api/v1/actuator/prometheus").authenticated()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())
+                //.httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.disable())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userDetailsService),
                         UsernamePasswordAuthenticationFilter.class);
@@ -56,7 +55,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /*@Bean
     public InMemoryUserDetailsManager userDetailsManager() {
         UserDetails prometheusUser = User.builder()
                 .username("prometheus")
@@ -65,5 +64,5 @@ public class SecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(prometheusUser);
-    }
+    }*/
 }

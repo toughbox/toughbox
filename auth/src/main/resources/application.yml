@@ -33,3 +33,16 @@ logging:
   level:
     org.springframework.security: DEBUG
     org.springframework.web.server.adapter: DEBUG
+
+management:
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"
+  endpoint:
+    prometheus:
+      access: unrestricted
