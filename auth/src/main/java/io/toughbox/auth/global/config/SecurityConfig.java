@@ -37,7 +37,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/actuator/**").permitAll()
                         .requestMatchers("/actuator/health", "/actuator/**").permitAll()
                         .requestMatchers("/error").permitAll()
-                        .anyRequest().permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.disable())
