@@ -25,6 +25,9 @@ spring:
               '[/**]':
                 allowedOrigins:
                   - "http://localhost:8090"
+                  - "http://localhost:8081"
+                allowedOriginPatterns:
+                  - "*"
                 allowedMethods:
                   - GET
                   - POST
@@ -92,6 +95,9 @@ spring:
               '[/**]':
                 allowedOrigins:
                   - "http://toughbox.iptime.org:8090"
+                  - "http://toughbox.iptime.org:8081"
+                allowedOriginPatterns:
+                  - "*"
                 allowedMethods:
                   - GET
                   - POST
