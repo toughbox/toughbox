@@ -34,7 +34,8 @@ services:
 
   # 게이트웨이 서비스
   gateway-service:
-    image: ${REGISTRY}/${REPOSITORY}/gateway-service:${TAG}
+    #image: ${REGISTRY}/${REPOSITORY}/gateway-service:${TAG}
+    image: ${REGISTRY}/${REPOSITORY}/gateway-service:${IMAGE_TAG:-latest}
     container_name: gateway-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
@@ -51,7 +52,8 @@ services:
 
   # 인증 서비스
   auth-service:
-    image: ${REGISTRY}/${REPOSITORY}/auth-service:${TAG}
+    #image: ${REGISTRY}/${REPOSITORY}/auth-service:${TAG}
+    image: ${REGISTRY}/${REPOSITORY}/auth-service:${IMAGE_TAG:-latest}
     container_name: auth-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
@@ -68,7 +70,8 @@ services:
 
   # 버킷 서비스
   bucket-service:
-    image: ${REGISTRY}/${REPOSITORY}/bucket-service:${TAG}
+    #image: ${REGISTRY}/${REPOSITORY}/bucket-service:${TAG}
+    image: ${REGISTRY}/${REPOSITORY}/bucket-service:${IMAGE_TAG:-latest}
     container_name: bucket-service
     environment:
       SPRING_PROFILES_ACTIVE: prod
@@ -85,7 +88,8 @@ services:
 
   # 영화 서비스
   movie-service:
-    image: ${REGISTRY}/${REPOSITORY}/movie-service:${TAG}
+    #image: ${REGISTRY}/${REPOSITORY}/movie-service:${TAG}
+    image: ${REGISTRY}/${REPOSITORY}/movie-service:${IMAGE_TAG:-latest}
     container_name: movie-service
     environment:
       SPRING_PROFILES_ACTIVE: prod

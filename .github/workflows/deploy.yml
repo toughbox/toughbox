@@ -89,6 +89,7 @@ jobs:
         script: |
           cd /home/tough/application
           git pull origin main
+          export IMAGE_TAG=${{ github.sha }}
           docker-compose -f docker-compose.prod.yml --env-file .env.prod pull
           docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d --force-recreate
           docker system prune -f
