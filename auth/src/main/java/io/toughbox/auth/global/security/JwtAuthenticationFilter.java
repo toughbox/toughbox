@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ import java.io.IOException;
  * JWT 인증 필터 - 모든 요청마다 Authorization 헤더에서 JWT를 읽어 인증 처리
  * Spring Security FilterChain에 등록 필요
  */
+@Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -31,13 +33,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
         String path = request.getRequestURI();
-        System.out.println("Before return: " + path);
+        log.info(">>>111 JwtAuthenticationFilter processing path: {}", path);
         if (path.startsWith("/actuator/prometheus") || path.startsWith("/api/v1/actuator/prometheus") || path.startsWith("/error")) {
             chain.doFilter(request, response);
             return;
         }
 
-        System.out.println("JWT Filter path: " + path);
+        log.info(">>>222 JwtAuthenticationFilter processing path: {}", path);
 
         String bearer = request.getHeader("Authorization");
 
