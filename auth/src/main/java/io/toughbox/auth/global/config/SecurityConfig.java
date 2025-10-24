@@ -61,7 +61,7 @@ public class SecurityConfig {
         UserDetails prometheusUser = User.builder()
                 .username("prometheus")
                 .password(passwordEncoder().encode("icJsHeHte8P28Mgn4CUB")) // Prometheus 설정과 동일하게
-                .roles("PROMETHEUS")
+                .roles("ACTUATOR")
                 .build();
 
         return new InMemoryUserDetailsManager(prometheusUser);
