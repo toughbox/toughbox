@@ -32,13 +32,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         //.requestMatchers("/auth/login", "/auth/users").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                        /*.requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
                         .requestMatchers("/api/v1/actuator/health", "/api/v1/actuator/**").permitAll()
                         .requestMatchers("/actuator/health", "/actuator/**").permitAll()
-                        .requestMatchers("/error").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/error").permitAll()*/
+                        .anyRequest().permitAll()
+                        //.anyRequest().authenticated()
                 )
+                .sessionManagement(session -> session.disable())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userDetailsService),
                         UsernamePasswordAuthenticationFilter.class);
         return http.build();
