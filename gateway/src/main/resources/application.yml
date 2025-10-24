@@ -6,9 +6,16 @@ spring:
       server:
         webflux:
           routes:
-            - id: auth
+            - id: auth-actuator
               uri: http://localhost:8081
               order: 1
+              predicates:
+                - Path=/auth/actuator/**
+              filters:
+                - RewritePath=/auth/actuator/(?<segment>.*), /actuator/${segment}
+            - id: auth
+              uri: http://localhost:8081
+              order: 2
               predicates:
                 - Path=/auth/**
               filters:
@@ -20,12 +27,6 @@ spring:
                 - Path=/bucket/**
               filters:
                 - RewritePath=/bucket/(?<segment>.*), /api/v1/$\{segment}
-            - id: auth-actuator
-              uri: http://auth-service:8081
-              predicates:
-                - Path=/auth/actuator/**
-              filters:
-                - RewritePath=/auth/actuator/(?<segment>.*), /actuator/${segment}
           globals:
             cors-configurations:
               '[/**]':
@@ -82,9 +83,16 @@ spring:
       server:
         webflux:
           routes:
+            - id: auth-actuator
+              uri: http://auth-service:8081
+              order: 1
+              predicates:
+                - Path=/auth/actuator/**
+              filters:
+                - RewritePath=/auth/actuator/(?<segment>.*), /actuator/${segment}
             - id: auth
               uri: http://toughbox.iptime.org:8081
-              order: 1
+              order: 2
               predicates:
                 - Path=/auth/**
               filters:
@@ -96,12 +104,6 @@ spring:
                 - Path=/bucket/**
               filters:
                 - RewritePath=/bucket/(?<segment>.*), /api/v1/$\{segment}
-            - id: auth-actuator
-              uri: http://auth-service:8081
-              predicates:
-                - Path=/auth/actuator/**
-              filters:
-                - RewritePath=/auth/actuator/(?<segment>.*), /actuator/${segment}
           globals:
             cors-configurations:
               '[/**]':
