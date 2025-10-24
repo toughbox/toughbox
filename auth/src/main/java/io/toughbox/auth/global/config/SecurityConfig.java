@@ -34,7 +34,7 @@ public class SecurityConfig {
                         //.requestMatchers("/auth/login", "/auth/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
-                        .requestMatchers("/actuator/health", "/actuator/prometheus/**").permitAll()
+                        .requestMatchers("/api/v1/actuator/health", "/api/v1/actuator/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
