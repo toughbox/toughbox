@@ -28,6 +28,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+
+        String path = request.getRequestURI();
+
+        if (path.startsWith("/actuator/prometheus") || path.startsWith("/actuator/health") || path.startsWith("/error")) {
+            return;
+        }
+
         String bearer = request.getHeader("Authorization");
 
         // 토큰 존재 & "Bearer "로 시작하는지 검사
